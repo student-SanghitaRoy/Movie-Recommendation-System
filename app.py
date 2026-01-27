@@ -10,9 +10,9 @@ OMDB_API_KEY = "80838057"
 
 app = Flask(__name__)
 
-# =========================
+
 # Load Pickle Files
-# =========================
+
 
 movies = pickle.load(open("movies.pkl", "rb"))
 similarity = pickle.load(open("similarity.pkl", "rb"))
@@ -29,16 +29,16 @@ def fetch_poster(movie_title):
         return "https://via.placeholder.com/300x450?text=No+Image"
 
 
-# =========================
-# Convert to DataFrame (If Needed)
-# =========================
+
+# Convert to DataFrame
+
 
 if not isinstance(movies, pd.DataFrame):
     movies = pd.DataFrame(movies)
 
-# =========================
+
 # Auto Detect Movie Title Column
-# =========================
+
 
 possible_cols = ["title", "movie_title", "name", "original_title"]
 
@@ -58,9 +58,9 @@ if movie_col is None:
 
 print("Movie title column detected as:", movie_col)
 
-# =========================
+
 # Recommendation Function
-# =========================
+
 
 def recommend(movie_name):
 
@@ -93,9 +93,9 @@ def recommend(movie_name):
 
 
 
-# =========================
+
 # Routes
-# =========================
+
 
 @app.route("/")
 def home():
@@ -119,9 +119,9 @@ def get_recommendation():
                            recommendations=recommendations)
 
 
-# =========================
+
 # Run App
-# =========================
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5001))

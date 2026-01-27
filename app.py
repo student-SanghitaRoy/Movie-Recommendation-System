@@ -1,0 +1,130 @@
+from flask import Flask, render_template, request
+import pickle
+import pandas as pd
+import numpy as np
+import requests
+import os
+
+OMDB_API_KEY = "80838057"
+
+
+app = Flask(__name__)
+
+# =========================
+# Load Pickle Files
+# =========================
+
+movies = pickle.load(open("movies.pkl", "rb"))
+similarity = pickle.load(open("similarity.pkl", "rb"))
+
+def fetch_poster(movie_title):
+    url = f"http://www.omdbapi.com/?t={movie_title}&apikey={OMDB_API_KEY}"
+    
+    response = requests.get(url)
+    data = response.json()
+
+    if data.get("Poster") and data["Poster"] != "N/A":
+        return data["Poster"]
+    else:
+        return "https://via.placeholder.com/300x450?text=No+Image"
+
+
+# =========================
+# Convert to DataFrame (If Needed)
+# =========================
+
+if not isinstance(movies, pd.DataFrame):
+    movies = pd.DataFrame(movies)
+
+# =========================
+# Auto Detect Movie Title Column
+# =========================
+
+possible_cols = ["title", "movie_title", "name", "original_title"]
+
+movie_col = None
+
+for col in possible_cols:
+    if col in movies.columns:
+        movie_col = col
+        break
+
+# If still not found, pick first string column
+if movie_col is None:
+    for col in movies.columns:
+        if movies[col].dtype == object:
+            movie_col = col
+            break
+
+print("Movie title column detected as:", movie_col)
+
+# =========================
+# Recommendation Function
+# =========================
+
+def recommend(movie_name):
+
+    try:
+        index = movies[movies[movie_col] == movie_name].index[0]
+    except:
+        return []
+
+    distances = similarity[index]
+
+    movie_list = sorted(
+        list(enumerate(distances)),
+        reverse=True,
+        key=lambda x: x[1]
+    )[1:6]
+
+    recommendations = []
+
+    for i in movie_list:
+        movie_title = movies.iloc[i[0]][movie_col]
+        
+        poster = fetch_poster(movie_title)
+
+        recommendations.append({
+            "title": movie_title,
+            "poster": poster
+        })
+
+    return recommendations
+
+
+
+# =========================
+# Routes
+# =========================
+
+@app.route("/")
+def home():
+
+    movie_names = movies[movie_col].values
+
+    return render_template("index.html",
+                           movie_list=movie_names)
+
+
+@app.route("/recommend", methods=["POST"])
+def get_recommendation():
+
+    selected_movie = request.form.get("movie")
+
+    recommendations = recommend(selected_movie)
+
+    return render_template("index.html",
+                           movie_list=movies[movie_col].values,
+                           selected_movie=selected_movie,
+                           recommendations=recommendations)
+
+
+# =========================
+# Run App
+# =========================
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5001))
+    app.run(host="0.0.0.0", port=port)
+
+

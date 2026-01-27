@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Movie Recommendation System</title>
+
+<!-- ===== BROWSER ICON (FAVICON) ===== -->
+<!-- Put your icon file here: static/images/favicon.ico -->
+
+<link rel="icon" href="/static/favicon.ico">
+
+
+<style>
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #141E30, #243B55);
+    color: white;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 520px;
+    padding: 25px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.search-box {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #ff4b2b;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #ff416c;
+}
+
+.result-box {
+    margin-top: 20px;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.movie-card {
+    background: rgba(255,255,255,0.15);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.movie-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.movie-card p {
+    margin-top: 8px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h2>🎬 Movie Recommendation System</h2>
+
+<form action="/recommend" method="post">
+
+<!-- ===== SEARCH WITH AUTO SUGGEST ===== -->
+
+<input list="movies" 
+       name="movie" 
+       placeholder="Type movie name..." 
+       required 
+       class="search-box"
+       value="{{ selected_movie }}">
+
+
+<datalist id="movies">
+
+{% for movie in movie_list %}
+<option value="{{ movie }}">
+{% endfor %}
+
+</datalist>
+
+<button type="submit">Recommend</button>
+
+</form>
+
+<!-- ===== RESULT DISPLAY ===== -->
+
+{% if recommendations %}
+
+<div class="result-box">
+
+<h3>Recommended Movies</h3>
+
+<div class="movie-grid">
+
+{% for movie in recommendations %}
+
+<div class="movie-card">
+
+<img src="{{ movie.poster }}" alt="{{ movie.title }}">
+
+<p>🎥 {{ movie.title }}</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</body>
+</html>

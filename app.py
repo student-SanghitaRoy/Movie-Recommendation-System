@@ -104,26 +104,31 @@ def recommend(movie_name):
 # Routes
 
 
-@app.route("/")
-def home():
-
-    movie_names = movies[movie_col].values
-
-    return render_template("index.html",
-                           movie_list=movie_names)
-
-
 @app.route("/recommend", methods=["POST"])
 def get_recommendation():
 
     selected_movie = request.form.get("movie")
 
+    print("Selected movie:", selected_movie)
+
+    if selected_movie is None or selected_movie == "":
+        return render_template(
+            "index.html",
+            movie_list=movies[movie_col].values,
+            error="No movie selected"
+        )
+
     recommendations = recommend(selected_movie)
 
-    return render_template("index.html",
-                           movie_list=movies[movie_col].values,
-                           selected_movie=selected_movie,
-                           recommendations=recommendations)
+    print("Recommendations:", recommendations)
+
+    return render_template(
+        "index.html",
+        movie_list=movies[movie_col].values,
+        selected_movie=selected_movie,
+        recommendations=recommendations
+    )
+
 
 
 

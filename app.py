@@ -23,18 +23,19 @@ similarity = pickle.load(open("similarity.pkl", "rb"))
 def fetch_poster(movie_title):
     try:
         url = f"https://www.omdbapi.com/?t={movie_title}&apikey={OMDB_API_KEY}"
+
         response = requests.get(url, timeout=5)
         data = response.json()
 
-        poster = data.get("Poster")
-
-        if poster and poster != "N/A":
-            return poster
+        if data.get("Poster") and data["Poster"] != "N/A":
+            return data["Poster"]
         else:
             return "https://via.placeholder.com/300x450?text=No+Poster"
 
-    except:
+    except Exception as e:
+        print("Poster fetch error:", e)
         return "https://via.placeholder.com/300x450?text=No+Poster"
+
 
 
 # Convert to DataFrame

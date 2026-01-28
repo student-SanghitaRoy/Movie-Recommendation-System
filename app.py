@@ -21,13 +21,13 @@ movies = pickle.load(open("movies.pkl", "rb"))
 similarity = pickle.load(open("similarity.pkl", "rb"))
 
 def fetch_poster(movie_title):
-    url = f"http://www.omdbapi.com/?t={movie_title}&apikey={OMDB_API_KEY}"
+    url = f"https://www.omdbapi.com/?t={movie_title}&apikey={OMDB_API_KEY}"
     
     response = requests.get(url)
     data = response.json()
 
     if data.get("Poster") and data["Poster"] != "N/A":
-        return data["Poster"]
+        return data["Poster"].replace("http://", "https://")
     else:
         return "https://via.placeholder.com/300x450?text=No+Image"
 

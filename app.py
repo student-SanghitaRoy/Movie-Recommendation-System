@@ -4,8 +4,11 @@ import pandas as pd
 import numpy as np
 import requests
 import os
+from dotenv import load_dotenv
 
-OMDB_API_KEY = "80838057"
+load_dotenv()
+
+OMDB_API_KEY = os.getenv("MOVIE_API_KEY")
 
 
 app = Flask(__name__)
@@ -126,5 +129,6 @@ def get_recommendation():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5001))
     app.run(host="0.0.0.0", port=port)
+
 
 

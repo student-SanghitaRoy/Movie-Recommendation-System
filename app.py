@@ -103,6 +103,18 @@ def recommend(movie_name):
 
 # Routes
 
+# Routes
+
+@app.route("/")
+def home():
+
+    movie_names = movies[movie_col].values
+
+    return render_template(
+        "index.html",
+        movie_list=movie_names
+    )
+
 
 @app.route("/recommend", methods=["POST"])
 def get_recommendation():
@@ -128,6 +140,7 @@ def get_recommendation():
         selected_movie=selected_movie,
         recommendations=recommendations
     )
+
 
 
 

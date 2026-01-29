@@ -4,11 +4,14 @@ import pandas as pd
 import numpy as np
 import requests
 import os
+from urllib.parse import quote
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
 OMDB_API_KEY = os.getenv("MOVIE_API_KEY")
+print("Loaded OMDB KEY:", OMDB_API_KEY)
 
 
 app = Flask(__name__)
@@ -22,19 +25,23 @@ similarity = pickle.load(open("similarity.pkl", "rb"))
 
 def fetch_poster(movie_title):
     try:
-        url = f"https://www.omdbapi.com/?t={movie_title}&apikey={OMDB_API_KEY}"
+        safe_title = quote(movie_title)
+
+        url = f"https://www.omdbapi.com/?s={safe_title}&apikey={OMDB_API_KEY}"
 
         response = requests.get(url, timeout=5)
         data = response.json()
 
-        if data.get("Poster") and data["Poster"] != "N/A":
-            return data["Poster"]
-        else:
-            return "https://via.placeholder.com/300x450?text=No+Poster"
+        if data.get("Search"):
+            poster = data["Search"][0].get("Poster")
+            if poster and poster != "N/A":
+                return poster
 
-    except Exception as e:
-        print("Poster fetch error:", e)
         return "https://via.placeholder.com/300x450?text=No+Poster"
+
+    except:
+        return "https://via.placeholder.com/300x450?text=No+Poster"
+
 
 
 
@@ -153,7 +160,3 @@ def get_recommendation():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-
-
-
-

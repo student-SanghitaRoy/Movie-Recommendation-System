@@ -1,89 +1,71 @@
-🎬 Movie Recommendation System
+# 🎬 Movie Recommendation System
        using Content-Based Filtering
 
-🔗 Live Deployment
+## 🔗 Live Deployment
 
-🚀 Deployed Application:
+🚀 **Deployed Application:**
 👉 https://movie-recommendation-system-39k4.onrender.com
 
-📌 Project Overview
+## 📌 Project Overview
 
-This project implements a Content-Based Movie Recommendation System that suggests similar movies based on their metadata such as genres, cast, keywords, and overview.
+This project implements a **Content-Based Movie Recommendation System** that suggests similar movies based on their metadata such as genres, cast, keywords, and overview.
 
 The system processes textual features using NLTK, computes similarity between movies, and provides recommendations through a deployed Flask web application with real-time poster display.
 
 This project demonstrates an end-to-end machine learning pipeline — from data preprocessing to model building and cloud deployment.
 
-🧠 Methodology
+---
 
-1️⃣ Data Preprocessing
+## 🧠 Methodology
 
-Merged movie and credit datasets
+### 1️⃣ Data Preprocessing
 
-Selected relevant features (genres, keywords, cast, overview)
+-Merged movie and credit datasets
+-Selected relevant features (genres, keywords, cast, overview)
+-Handled missing values
+-Combined important textual attributes into a single feature column
 
-Handled missing values
+### 2️⃣ Text Processing (NLTK)
 
-Combined important textual attributes into a single feature column
+-Tokenization
+-Lowercasing
+-Stemming
+-Noise removal
 
-2️⃣ Text Processing (NLTK)
+### 3️⃣ Feature Representation
 
-Tokenization
+-Converted processed text into numerical vectors
+-Built a similarity matrix using cosine similarity
 
-Lowercasing
-
-Stemming
-
-Noise removal
-
-3️⃣ Feature Representation
-
-Converted processed text into numerical vectors
-
-Built a similarity matrix using cosine similarity
-
-4️⃣ Recommendation Logic
+### 4️⃣ Recommendation Logic
 
 For a selected movie:
 
-Retrieve its similarity scores
+-Retrieve its similarity scores
+-Sort movies based on similarity
+-Return top 5 most similar movies
 
-Sort movies based on similarity
+## 🛠 Technologies Used
 
-Return top 5 most similar movies
+-Python
+-Pandas
+-NumPy
+-NLTK
+-Flask
+-HTML & CSS
+-OMDb API (for poster fetching)
+-Gunicorn
+-Render (Cloud Deployment)
 
-🛠 Technologies Used
+## ✨ Features
 
-Python
+-Content-based movie recommendations
+-Text preprocessing using NLTK
+-Real-time movie poster fetching
+-Clean and responsive user interface
+-Cloud deployed application
 
-Pandas
-
-NumPy
-
-NLTK
-
-Flask
-
-HTML & CSS
-
-OMDb API (for poster fetching)
-
-Gunicorn
-
-Render (Cloud Deployment)
-
-✨ Features
-
-Content-based movie recommendations
-
-Text preprocessing using NLTK
-
-Real-time movie poster fetching
-
-Clean and responsive user interface
-
-
-Cloud deployed application
+---
 
 📂 Project Structure
 
@@ -102,7 +84,9 @@ Movie-Recommendation-System/
 │
 └── README.md
 
-📊 System Workflow
+---
+
+## 📊 System Workflow
 
 User Input →
 Movie Title Matching →
@@ -111,53 +95,43 @@ Top Recommendations →
 Poster Fetching via API →
 Results Displayed in Web Interface
 
-🔮 Future Improvements
+---
 
-Hybrid Recommendation System (Content + Collaborative Filtering)
+## 🔮 Future Improvements
 
-User profile-based personalization
+-Hybrid Recommendation System (Content + Collaborative Filtering)
+-User profile-based personalization
+-Feedback-based recommendation refinement
+-Performance optimization for larger datasets
+-UI enhancements with filtering and sorting options
 
-Feedback-based recommendation refinement
+---
 
-Performance optimization for larger datasets
+## 📚 Learning Outcomes
 
-UI enhancements with filtering and sorting options
+-Practical implementation of content-based filtering
+-Text preprocessing using NLTK
+-Feature engineering for recommendation systems
+-Flask backend integration
+-API handling and poster retrieval
+-Cloud deployment of ML applications
 
-📚 Learning Outcomes
+---
 
-Practical implementation of content-based filtering
+## 👩‍💻 Project Information
 
-Text preprocessing using NLTK
+-**Project Title:** Movie Recommendation System
+-**Author Name:** Sanghita Roy
+-**Roll Number:** 23035010421
+-**Program:** B.Sc. (Hons.) Data Science & Artificial Intelligence
+-**Institute:** IIT Guwahati
 
-Feature engineering for recommendation systems
-
-Flask backend integration
-
-API handling and poster retrieval
-
-Cloud deployment of ML applications
-
-👩‍💻 Project Information
-
-Project Title: Movie Recommendation System
-
-Author Name: Sanghita Roy
-
-Roll Number: 23035010421
-
-Program: B.Sc. (Hons.) Data Science & Artificial Intelligence
-
-Institute: IIT Guwahati
-
-⭐ Academic Purpose
+## ⭐ Academic Purpose
 
 This project was developed as part of academic learning to demonstrate understanding of:
 
-Recommendation systems
-
-Text processing techniques
-
-Similarity-based modeling
-
-End-to-end ML application deployment
+-Recommendation systems
+-Text processing techniques
+-Similarity-based modeling
+-End-to-end ML application deployment
 

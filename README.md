@@ -86,6 +86,7 @@ Clean and responsive user interface
 Cloud deployed application
 
 📂 Project Structure
+
 Movie-Recommendation-System/
 │
 ├── app.py
@@ -141,8 +142,11 @@ Cloud deployment of ML applications
 Project Title: Movie Recommendation System
 
 Author Name: Sanghita Roy
+
 Roll Number: 23035010421
+
 Program: B.Sc. (Hons.) Data Science & Artificial Intelligence
+
 Institute: IIT Guwahati
 
 ⭐ Academic Purpose

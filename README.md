@@ -13,6 +13,7 @@ The system processes textual features using NLTK, computes similarity between mo
 This project demonstrates an end-to-end machine learning pipeline — from data preprocessing to model building and cloud deployment.
 
 🧠 Methodology
+
 1️⃣ Data Preprocessing
 
 Merged movie and credit datasets
